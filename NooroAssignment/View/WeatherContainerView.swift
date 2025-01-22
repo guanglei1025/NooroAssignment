@@ -11,20 +11,16 @@ struct WeatherContainerView: View {
 
     @Environment(WeatherViewModel.self) var viewModel
 
-    @State private var searchKeyword: String = ""
-
     var body: some View {
         VStack {
-            SearchBar(searchKeyword: $searchKeyword)
+            SearchBar(searchKeyword: searchKeywordBinding)
                 .padding(.horizontal)
                 .padding(.vertical, 50)
 
             bodyContent
+                .padding(.horizontal)
 
             Spacer()
-        }
-        .onChange(of: searchKeyword) {
-            print("search keyword changed to: \(searchKeyword)")
         }
     }
 
@@ -35,6 +31,13 @@ struct WeatherContainerView: View {
         } else {
             WeatherView()
         }
+    }
+
+    private var searchKeywordBinding: Binding<String> {
+        Binding(
+            get: { viewModel.searchKeyword },
+            set: { viewModel.searchKeyword = $0 }
+        )
     }
 }
 

@@ -10,5 +10,9 @@ import Observation
 
 @Observable
 class WeatherViewModel {
-    var showSearchResult: Bool = false
+    var searchKeyword: String = ""
+    
+    var showSearchResult: Bool {
+        return searchKeyword.count > 3
+    }
 }

@@ -47,7 +47,6 @@ struct WeatherView: View {
             .frame(maxWidth: .infinity)
             .background(Color(.secondarySystemBackground))
             .cornerRadius(10)
-            .padding(.horizontal, 30)
         }
         .frame(maxWidth: .infinity)
     }
