@@ -14,19 +14,26 @@ struct WeatherContainerView: View {
     @State private var searchKeyword: String = ""
 
     var body: some View {
-
         VStack {
             SearchBar(searchKeyword: $searchKeyword)
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 50)
 
-            if viewModel.showSearchResult {
-                SearchResultView()
-            } else {
-                WeatherView()
-            }
+            bodyContent
+
+            Spacer()
         }
         .onChange(of: searchKeyword) {
             print("search keyword changed to: \(searchKeyword)")
+        }
+    }
+
+    @ViewBuilder
+    private var bodyContent: some View {
+        if viewModel.showSearchResult {
+            SearchResultView()
+        } else {
+            WeatherView()
         }
     }
 }

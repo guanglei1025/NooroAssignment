@@ -21,7 +21,7 @@ struct WeatherView: View {
     @State private var bodyTemperature: String = "38"
 
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 20) {
             Image(systemName: "heart.fill")
                 .resizable()
                 .scaledToFit()
