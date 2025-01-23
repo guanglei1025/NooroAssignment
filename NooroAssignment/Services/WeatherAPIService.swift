@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
 class WeatherAPIService {
+
     private var currentWeatherComponents: URLComponents = {
         var components = URLComponents()
         components.scheme = "https"
