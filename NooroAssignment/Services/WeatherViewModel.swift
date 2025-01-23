@@ -19,10 +19,10 @@ class WeatherViewModel {
 
     private var weatherService = WeatherAPIService()
 
-    var modelContext: ModelContext
+    private var localStorageService: LocalStorageService
 
     init(modelContext: ModelContext) {
-        self.modelContext = modelContext
+        self.localStorageService = LocalStorageService(modelContext: modelContext)
     }
 
     var showSearchResult: Bool {
@@ -32,11 +32,21 @@ class WeatherViewModel {
     @MainActor
     func getWeatherData() async {
         do {
-            let weatherResponse = try await weatherService.getCurrentWeather(for: "miami")
-            modelContext.insert(weatherResponse)
-            weather = weatherResponse
+            let newWeather = try await weatherService.getCurrentWeather(for: "orlando")
+
+            if var storedWeather = localStorageService.getWeather() {
+                localStorageService.updateWeather(with: newWeather)
+            } else {
+                localStorageService.saveWeather(newWeather)
+            }
+            weather = newWeather
+
         } catch {
-            print("handle get weather error\(error)")
+            guard let storedWeather = localStorageService.getWeather() else {
+                return
+            }
+            weather = storedWeather
         }
+
     }
 }
