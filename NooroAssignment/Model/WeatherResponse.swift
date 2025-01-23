@@ -49,9 +49,9 @@ class Location: Decodable {
 
 @Model
 class CurrentWeather: Decodable {
-    var tempF: Int
+    var tempF: Double
     var humidity: Double
-    var uv: Int
+    var uv: Double
     var feelsLikeF: Double
 
     enum CodingKeys: String, CodingKey {
@@ -63,9 +63,9 @@ class CurrentWeather: Decodable {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.tempF = try container.decode(Int.self, forKey: .tempF)
+        self.tempF = try container.decode(Double.self, forKey: .tempF)
         self.humidity = try container.decode(Double.self, forKey: .humidity)
-        self.uv = try container.decode(Int.self, forKey: .uv)
+        self.uv = try container.decode(Double.self, forKey: .uv)
         self.feelsLikeF = try container.decode(Double.self, forKey: .feelsLikeF)
     }
 }

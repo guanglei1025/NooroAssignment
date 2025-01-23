@@ -32,9 +32,11 @@ class WeatherViewModel {
     @MainActor
     func getWeatherData() async {
         do {
-            weather = try await weatherService.getCurrentWeather(for: "miami")
+            let weatherResponse = try await weatherService.getCurrentWeather(for: "miami")
+            modelContext.insert(weatherResponse)
+            weather = weatherResponse
         } catch {
-            print("handle get weather error")
+            print("handle get weather error\(error)")
         }
     }
 }

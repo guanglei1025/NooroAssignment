@@ -28,6 +28,9 @@ struct WeatherContainerView: View {
 
             Spacer()
         }
+        .task {
+            await viewModel.getWeatherData()
+        }
         .environment(viewModel)
     }
 

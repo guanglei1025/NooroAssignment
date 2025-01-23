@@ -39,7 +39,7 @@ struct WeatherView: View {
                     .imageScale(.large)
             }
 
-            Text("\(weather.current.tempF)")
+            Text("\(Int(weather.current.tempF))")
                 .font(.system(size: 100, weight: .semibold))
 
             HStack(spacing: 50) {
