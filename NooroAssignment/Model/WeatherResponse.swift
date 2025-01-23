@@ -6,13 +6,42 @@
 //
 
 import Foundation
+import SwiftData
 
-struct WeatherResponse: Codable {
-    let location: Location
-    let current: CurrentWeather
+@Model
+class WeatherResponse: Codable {
+    var location: Location
+    var current: CurrentWeather
+
+    init(location: Location, current: CurrentWeather) {
+        self.location = location
+        self.current = current
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case location
+        case current
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.location = try container.decode(Location.self, forKey: .location)
+        self.current = try container.decode(CurrentWeather.self, forKey: .current)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(location, forKey: .location)
+        try container.encode(current, forKey: .current)
+    }
 }
 
-struct CurrentWeather: Codable {
+class Location: Codable {
+    let name: String
+    let country: String
+}
+
+class CurrentWeather: Codable {
     let tempF: Double
     let humidity: Double
     let uv: Int
@@ -26,7 +55,3 @@ struct CurrentWeather: Codable {
     }
 }
 
-struct Location: Codable {
-    let name: String
-    let country: String
-}
