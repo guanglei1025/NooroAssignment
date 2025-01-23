@@ -19,7 +19,7 @@ class WeatherAPIService {
         return components
     }()
 
-    func getCurrentWeather(for city: String) async throws {
+    func getCurrentWeather(for city: String) async throws -> WeatherResponse {
         currentWeatherComponents.queryItems?.append(URLQueryItem(name: "q", value: city))
         guard let url = currentWeatherComponents.url else {
             throw URLError(.badURL)
@@ -33,6 +33,6 @@ class WeatherAPIService {
             throw URLError(.badServerResponse)
         }
 
-        print(String(data: data, encoding: .utf8) ?? "No data")
+        return try JSONDecoder().decode(WeatherResponse.self, from: data)
     }
 }

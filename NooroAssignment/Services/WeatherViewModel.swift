@@ -7,9 +7,11 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 class WeatherViewModel {
+
     var searchKeyword: String = ""
 
     private var weatherService = WeatherAPIService()
@@ -19,6 +21,6 @@ class WeatherViewModel {
     }
 
     func getWeatherData() async throws {
-        try await weatherService.getCurrentWeather(for: "miami")
+        _ = try await weatherService.getCurrentWeather(for: "miami")
     }
 }
