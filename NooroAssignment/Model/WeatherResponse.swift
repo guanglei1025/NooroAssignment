@@ -42,7 +42,7 @@ class Location: Codable {
 }
 
 class CurrentWeather: Codable {
-    let tempF: Double
+    let tempF: Int
     let humidity: Double
     let uv: Int
     let feelsLikeF: Double

@@ -23,7 +23,11 @@ class WeatherViewModel {
     }
 
     @MainActor
-    func getWeatherData() async throws {
-        weather = try await weatherService.getCurrentWeather(for: "miami")
+    func getWeatherData() async {
+        do {
+            weather = try await weatherService.getCurrentWeather(for: "miami")
+        } catch {
+            print("handle get weather error")
+        }
     }
 }

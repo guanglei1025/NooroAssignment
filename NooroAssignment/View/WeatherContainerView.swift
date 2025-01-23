@@ -22,13 +22,6 @@ struct WeatherContainerView: View {
 
             Spacer()
         }
-        .task {
-            do {
-                try await viewModel.getWeatherData()
-            } catch {
-
-            }
-        }
     }
 
     @ViewBuilder

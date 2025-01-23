@@ -10,28 +10,21 @@ import SwiftUI
 struct WeatherView: View {
     @Environment(WeatherViewModel.self) var viewModel
 
-    @State private var locationName: String = "Pune"
-
-    @State private var temperature: String = "45"
-
-    @State private var humidity: String = "20%"
-
-    @State private var uvLevel: String = "4"
-
-    @State private var bodyTemperature: String = "38"
-
     var body: some View {
         Group {
-            if viewModel.weather == nil {
-                noContent
+            if let weather = viewModel.weather {
+                bodyContent(for: weather)
             } else {
-                bodyContent
+                noContent
             }
+        }
+        .task {
+            await viewModel.getWeatherData()
         }
     }
 
     @ViewBuilder
-    private var bodyContent: some View {
+    private func bodyContent(for weather: WeatherResponse) -> some View {
         VStack(spacing: 20) {
             Image(systemName: "heart.fill")
                 .resizable()
@@ -39,20 +32,20 @@ struct WeatherView: View {
                 .frame(width: 123, height: 123)
 
             HStack(alignment: .center) {
-                Text(locationName)
+                Text(weather.location.name)
                     .font(.system(size: 35, weight: .bold))
 
                 Image(systemName: "location.fill")
                     .imageScale(.large)
             }
 
-            Text(temperature)
+            Text("\(weather.current.tempF)")
                 .font(.system(size: 100, weight: .semibold))
 
             HStack(spacing: 50) {
-                VerticalCell(title: "Humidity", subtitle: humidity)
-                VerticalCell(title: "UV", subtitle: uvLevel)
-                VerticalCell(title: "Feels Like", subtitle: bodyTemperature)
+                VerticalCell(title: "Humidity", subtitle: "\(weather.current.humidity)")
+                VerticalCell(title: "UV", subtitle: "\(weather.current.uv)")
+                VerticalCell(title: "Feels Like", subtitle: "\(weather.current.feelsLikeF)")
             }
             .padding(.vertical)
             .frame(maxWidth: .infinity)
