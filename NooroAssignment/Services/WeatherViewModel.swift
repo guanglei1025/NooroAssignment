@@ -21,6 +21,7 @@ class WeatherViewModel {
     }
 
     func getWeatherData() async throws {
-        _ = try await weatherService.getCurrentWeather(for: "miami")
+        let weather = try await weatherService.getCurrentWeather(for: "miami")
+        print(weather.current.feelsLikeF)
     }
 }
