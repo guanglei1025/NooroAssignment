@@ -48,6 +48,12 @@ struct WeatherContainerView: View {
     }
 }
 
-//#Preview {
-//    WeatherContainerView()
-//}
+#Preview {
+    do {
+        let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: WeatherResponse.self, configurations: configuration)
+        return WeatherContainerView(modelContext: container.mainContext)
+    } catch {
+        fatalError("error")
+    }
+}
