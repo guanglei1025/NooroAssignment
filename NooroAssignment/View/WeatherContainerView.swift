@@ -10,8 +10,11 @@ import SwiftData
 
 struct WeatherContainerView: View {
 
-    @Environment(WeatherViewModel.self) var viewModel
-    @Environment(\.modelContext) private var modelContext
+    @State private var viewModel: WeatherViewModel
+
+    init(modelContext: ModelContext) {
+        _viewModel = State(initialValue: WeatherViewModel(modelContext: modelContext))
+    }
 
     var body: some View {
         VStack {
@@ -19,14 +22,13 @@ struct WeatherContainerView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 50)
 
+            
             bodyContent
                 .padding(.horizontal)
 
             Spacer()
         }
-        .onAppear {
-            viewModel.modelContext = modelContext
-        }
+        .environment(viewModel)
     }
 
     @ViewBuilder
@@ -46,7 +48,6 @@ struct WeatherContainerView: View {
     }
 }
 
-#Preview {
-    WeatherContainerView()
-        .environment(WeatherViewModel())
-}
+//#Preview {
+//    WeatherContainerView()
+//}

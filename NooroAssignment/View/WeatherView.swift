@@ -85,5 +85,5 @@ struct VerticalCell : View {
 
 #Preview {
     WeatherView()
-        .environment(WeatherViewModel())
+//        .environment(WeatherViewModel())
 }

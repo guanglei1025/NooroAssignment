@@ -23,13 +23,10 @@ struct NooroAssignmentApp: App {
         }
     }()
 
-    @State private var viewModel = WeatherViewModel()
-
     var body: some Scene {
         WindowGroup {
-            WeatherContainerView()
+            WeatherContainerView(modelContext: sharedModelContainer.mainContext)
+                .modelContainer(sharedModelContainer)
         }
-        .modelContainer(sharedModelContainer)
-        .environment(viewModel)
     }
 }

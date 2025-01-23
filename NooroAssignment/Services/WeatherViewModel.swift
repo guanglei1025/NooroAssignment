@@ -15,11 +15,15 @@ class WeatherViewModel {
 
     var searchKeyword: String = ""
 
-    var modelContext: ModelContext? = nil
-
     var weather: WeatherResponse?
 
     private var weatherService = WeatherAPIService()
+
+    var modelContext: ModelContext
+
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
 
     var showSearchResult: Bool {
         return searchKeyword.count > 3
