@@ -21,6 +21,17 @@ struct WeatherView: View {
     @State private var bodyTemperature: String = "38"
 
     var body: some View {
+        Group {
+            if viewModel.weather == nil {
+                noContent
+            } else {
+                bodyContent
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var bodyContent: some View {
         VStack(spacing: 20) {
             Image(systemName: "heart.fill")
                 .resizable()
@@ -48,7 +59,18 @@ struct WeatherView: View {
             .background(Color(.secondarySystemBackground))
             .cornerRadius(10)
         }
-        .frame(maxWidth: .infinity)
+    }
+
+    @ViewBuilder
+    private var noContent: some View {
+        VStack(spacing: 20) {
+            Text("No City Selected")
+                .font(.system(size: 35, weight: .bold))
+
+            Text("Please Search For A City")
+                .font(.system(size: 20, weight: .bold))
+        }
+        .padding(.top, 150)
     }
 }
 

@@ -14,14 +14,16 @@ class WeatherViewModel {
 
     var searchKeyword: String = ""
 
+    var weather: WeatherResponse?
+
     private var weatherService = WeatherAPIService()
 
     var showSearchResult: Bool {
         return searchKeyword.count > 3
     }
 
+    @MainActor
     func getWeatherData() async throws {
-        let weather = try await weatherService.getCurrentWeather(for: "miami")
-        print(weather.current.feelsLikeF)
+        weather = try await weatherService.getCurrentWeather(for: "miami")
     }
 }
