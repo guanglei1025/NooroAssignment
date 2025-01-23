@@ -11,6 +11,7 @@ import SwiftData
 struct WeatherContainerView: View {
 
     @Environment(WeatherViewModel.self) var viewModel
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         VStack {
@@ -22,6 +23,9 @@ struct WeatherContainerView: View {
                 .padding(.horizontal)
 
             Spacer()
+        }
+        .onAppear {
+            viewModel.modelContext = modelContext
         }
     }
 

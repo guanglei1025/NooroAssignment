@@ -15,6 +15,8 @@ class WeatherViewModel {
 
     var searchKeyword: String = ""
 
+    var modelContext: ModelContext? = nil
+
     var weather: WeatherResponse?
 
     private var weatherService = WeatherAPIService()
