@@ -32,13 +32,9 @@ class WeatherViewModel {
     @MainActor
     func getWeatherData() async {
         do {
-            let newWeather = try await weatherService.getCurrentWeather(for: "orlando")
+            let newWeather = try await weatherService.getCurrentWeather(for: "miami")
+            localStorageService.updateWeather(with: newWeather)
 
-            if var storedWeather = localStorageService.getWeather() {
-                localStorageService.updateWeather(with: newWeather)
-            } else {
-                localStorageService.saveWeather(newWeather)
-            }
             weather = newWeather
 
         } catch {

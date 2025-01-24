@@ -19,17 +19,18 @@ class LocalStorageService {
         self.modelContext = modelContext
     }
 
-    func saveWeather(_ weather: WeatherResponse) {
+    func addWeather(_ weather: WeatherResponse) {
         modelContext.insert(weather)
     }
 
     func updateWeather(with newWeather: WeatherResponse) {
         if let storedWeather = getWeather() {
-            storedWeather.current = newWeather.current
-            storedWeather.location = newWeather.location
-            saveModelContext()
+            modelContext.delete(storedWeather)
         }
+        addWeather(newWeather)
+        saveModelContext()
     }
+
 
     func getWeather() -> WeatherResponse? {
         let fetchRequest = FetchDescriptor<WeatherResponse>()
