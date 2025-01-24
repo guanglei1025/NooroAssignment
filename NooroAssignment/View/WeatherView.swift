@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WeatherView: View {
     @Environment(WeatherViewModel.self) var viewModel
 
+    @Query
+    var weathers: [WeatherResponse]
+
     var body: some View {
         Group {
-            if let weather = viewModel.weather {
+            if let weather = weathers.first {
                 bodyContent(for: weather)
             } else {
                 noContent

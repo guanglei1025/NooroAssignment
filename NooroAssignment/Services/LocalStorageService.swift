@@ -31,7 +31,6 @@ class LocalStorageService {
         saveModelContext()
     }
 
-
     func getWeather() -> WeatherResponse? {
         let fetchRequest = FetchDescriptor<WeatherResponse>()
         do {
