@@ -15,7 +15,7 @@ class WeatherViewModel {
 
     var searchKeyword: String = ""
 
-    var weather: WeatherResponse?
+    var searchedWeather: WeatherResponse?
 
     private var weatherService = WeatherAPIService()
 
@@ -29,20 +29,32 @@ class WeatherViewModel {
         return searchKeyword.count > 3
     }
 
+//    @MainActor
+//    func getWeatherData() async {
+//        do {
+//            let newWeather = try await weatherService.getCurrentWeather(for: "miami")
+//            localStorageService.updateWeather(with: newWeather)
+//
+//            searchedWeather = newWeather
+//
+//        } catch {
+//            guard let storedWeather = localStorageService.getWeather() else {
+//                return
+//            }
+//            searchedWeather = storedWeather
+//        }
+//    }
+
     @MainActor
-    func getWeatherData() async {
-        do {
-            let newWeather = try await weatherService.getCurrentWeather(for: "miami")
-            localStorageService.updateWeather(with: newWeather)
+    func getWeatherForSavedData(_ temp: String) async {
+        print(temp)
+    }
 
-            weather = newWeather
-
-        } catch {
-            guard let storedWeather = localStorageService.getWeather() else {
-                return
-            }
-            weather = storedWeather
+    @MainActor
+    func saveWeatherToLocalStorage() {
+        guard let weatherData = searchedWeather else {
+            return
         }
-
+        localStorageService.updateWeather(with: weatherData)
     }
 }
