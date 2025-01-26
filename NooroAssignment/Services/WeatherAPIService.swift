@@ -8,9 +8,19 @@
 import Foundation
 import SwiftData
 
-class WeatherAPIService {
+protocol WeatherAPIFeatching {
+    func getCurrentWeather(for keyword: String) async throws -> WeatherResponse
+}
+
+class WeatherAPIService: WeatherAPIFeatching {
+
+    private let session: URLSessionProtocol
 
     private let key = "ad6c1da48de14e28bb935230252201"
+
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
 
     func getCurrentWeather(for keyword: String) async throws -> WeatherResponse {
         let urlString = "https://api.weatherapi.com/v1/current.json?key=\(key)&q=\(keyword)"
@@ -18,7 +28,7 @@ class WeatherAPIService {
             throw URLError(.badURL)
         }
 
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await session.data(from: url)
 
         guard let httpResponse = response as? HTTPURLResponse,
               200..<300 ~= httpResponse.statusCode
@@ -29,3 +39,9 @@ class WeatherAPIService {
         return try JSONDecoder().decode(WeatherResponse.self, from: data)
     }
 }
+
+public protocol URLSessionProtocol {
+    func data(from url: URL) async throws -> (Data, URLResponse)
+}
+
+extension URLSession: URLSessionProtocol { }

@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import os
 
+@MainActor
 class LocalStorageService {
 
     let viewModelLog = OSLog(subsystem: "com.WeatherApp", category: "LocalStorageService")
@@ -25,9 +26,11 @@ class LocalStorageService {
 
     func updateWeather(with newWeather: WeatherResponse) {
         if let storedWeather = getWeather() {
-            modelContext.delete(storedWeather)
+            storedWeather.location = newWeather.location
+            storedWeather.current = newWeather.current
+        } else {
+            addWeather(newWeather)
         }
-        addWeather(newWeather)
         saveModelContext()
     }
 
