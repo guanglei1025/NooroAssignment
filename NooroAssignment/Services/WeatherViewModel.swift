@@ -13,7 +13,15 @@ import SwiftData
 @Observable
 class WeatherViewModel {
 
-    var searchKeyword: String = ""
+    var searchKeyword: String = "" {
+        didSet {
+            if searchKeyword.count > 3 {
+                Task {
+                    await getWeatherForSearchedLocation(searchKeyword)
+                }
+            }
+        }
+    }
 
     var searchedWeather: WeatherResponse?
 

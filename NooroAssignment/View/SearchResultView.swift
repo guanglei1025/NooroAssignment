@@ -9,16 +9,15 @@ import SwiftUI
 
 struct SearchResultView: View {
 
-    let locationName: String = "New York"
-    let temperature: String = "10°C"
+    let searchedWeather: WeatherResponse
 
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 10) {
-                Text(locationName)
+                Text(searchedWeather.location.name)
                     .font(.system(size: 25, weight: .bold))
 
-                Text(temperature)
+                Text("\(Int(searchedWeather.current.tempF))")
                     .font(.system(size: 60, weight: .semibold))
             }
 
@@ -37,5 +36,5 @@ struct SearchResultView: View {
 }
 
 #Preview {
-    SearchResultView()
+    SearchResultView(searchedWeather: WeatherResponse.mock())
 }

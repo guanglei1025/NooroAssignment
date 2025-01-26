@@ -22,7 +22,6 @@ struct WeatherContainerView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 50)
 
-            
             bodyContent
                 .padding(.horizontal)
 
@@ -33,8 +32,8 @@ struct WeatherContainerView: View {
 
     @ViewBuilder
     private var bodyContent: some View {
-        if viewModel.showSearchResult {
-            SearchResultView()
+        if let weather = viewModel.searchedWeather {
+            SearchResultView(searchedWeather: weather)
         } else {
             WeatherView()
         }

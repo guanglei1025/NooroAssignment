@@ -40,6 +40,11 @@ class Location: Decodable {
         case country
     }
 
+    init (name: String, country: String) {
+        self.name = name
+        self.country = country
+    }
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
@@ -59,6 +64,13 @@ class CurrentWeather: Decodable {
         case humidity
         case uv
         case feelsLikeF = "feelslike_f"
+    }
+
+    init(tempF: Double, humidity: Double, uv: Double, feelsLikeF: Double) {
+        self.tempF = tempF
+        self.humidity = humidity
+        self.uv = uv
+        self.feelsLikeF = feelsLikeF
     }
 
     required init(from decoder: Decoder) throws {
