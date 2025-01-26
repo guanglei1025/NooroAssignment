@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SearchResultView: View {
 
@@ -41,5 +42,11 @@ struct SearchResultView: View {
 }
 
 #Preview {
-    SearchResultView(searchedWeather: WeatherResponse.mock())
+    do {
+        let modelContext = try ModelContext.mock()
+        return SearchResultView(searchedWeather: WeatherResponse.mock())
+            .environment(WeatherViewModel(modelContext: modelContext))
+    } catch {
+        fatalError("Filed to create SwiftUI preview")
+    }
 }
