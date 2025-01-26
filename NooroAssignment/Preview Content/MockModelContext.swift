@@ -9,7 +9,8 @@ import Foundation
 import SwiftData
 
 extension ModelContext {
-    @MainActor static func mock() -> ModelContext {
+    @MainActor
+    static func mock() -> ModelContext {
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
 
