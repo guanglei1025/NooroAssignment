@@ -10,15 +10,20 @@ import SwiftData
 
 extension ModelContext {
     @MainActor
-    static func mock() -> ModelContext {
+    static let previewContainer: ModelContainer = {
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
 
-            let modelContext = try ModelContainer(for: WeatherResponse.self, configurations: config).mainContext
+            let container = try ModelContainer(for: WeatherResponse.self, configurations: config)
 
-            return modelContext
+            let weather = WeatherResponse(location: Location(name: "Miami", country: "USA"), current:
+                                            CurrentWeather(tempF: 10.0, humidity: 5.0, uv: 3.0, feelsLikeF: 2.0))
+
+            container.mainContext.insert(weather)
+
+            return container
         } catch {
             fatalError("Failed to create model container for previewing: \(error.localizedDescription)")
         }
-    }
+    }()
 }

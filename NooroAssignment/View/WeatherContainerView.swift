@@ -48,10 +48,6 @@ struct WeatherContainerView: View {
 }
 
 #Preview {
-    do {
-        let modelContext = try ModelContext.mock()
-        return WeatherContainerView(modelContext: modelContext)
-    } catch {
-        fatalError("Failed to create SwiftUI preview \(error)")
-    }
+    let container = ModelContext.previewContainer
+    WeatherContainerView(modelContext: container.mainContext)
 }

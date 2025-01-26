@@ -44,11 +44,9 @@ struct SearchResultView: View {
 }
 
 #Preview {
-    do {
-        let modelContext = try ModelContext.mock()
-        return SearchResultView()
-            .environment(WeatherViewModel(modelContext: modelContext))
-    } catch {
-        fatalError("Filed to create SwiftUI preview")
-    }
+    let container = ModelContext.previewContainer
+    var viewModel = WeatherViewModel(modelContext: container.mainContext)
+    viewModel.searchKeyword = "New York"
+    return SearchResultView()
+        .environment(viewModel)
 }

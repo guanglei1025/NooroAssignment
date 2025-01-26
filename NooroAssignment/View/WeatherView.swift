@@ -23,7 +23,7 @@ struct WeatherView: View {
             }
         }
         .task {
-            if let weather = weathers.first {
+            if weathers.first != nil {
                 await viewModel.getWeatherForSavedLocation()
             }
         }
@@ -90,6 +90,7 @@ struct VerticalCell : View {
 }
 
 #Preview {
+    let container = ModelContext.previewContainer
     WeatherView()
-//        .environment(WeatherViewModel())
+        .environment(WeatherViewModel(modelContext: container.mainContext))
 }
