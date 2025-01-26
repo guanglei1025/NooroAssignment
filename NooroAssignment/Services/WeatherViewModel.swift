@@ -29,6 +29,28 @@ class WeatherViewModel {
         return searchKeyword.count > 3
     }
 
+    @MainActor
+    func getWeatherForSavedLocation() async {
+        guard let storedLocation = localStorageService.getWeather()?.location else {
+            return
+        }
+        do {
+            let weather = try await weatherService.getCurrentWeather(for: storedLocation.name)
+            localStorageService.updateWeather(with: weather)
+        } catch {
+            print("Handle Error")
+        }
+    }
+
+    @MainActor
+    func getWeatherForSearchedLocation(_ location: String) async {
+        do {
+            searchedWeather = try await weatherService.getCurrentWeather(for: location)
+        } catch {
+            print("Handle Error")
+        }
+    }
+
 //    @MainActor
 //    func getWeatherData() async {
 //        do {
@@ -45,16 +67,16 @@ class WeatherViewModel {
 //        }
 //    }
 
-    @MainActor
-    func getWeatherForSavedData(_ temp: String) async {
-        print(temp)
-    }
+//    @MainActor
+//    func getWeatherForSavedData(_ temp: String) async {
+//        print(temp)
+//    }
 
-    @MainActor
-    func saveWeatherToLocalStorage() {
-        guard let weatherData = searchedWeather else {
-            return
-        }
-        localStorageService.updateWeather(with: weatherData)
-    }
+//    @MainActor
+//    func saveWeatherToLocalStorage() {
+//        guard let weatherData = searchedWeather else {
+//            return
+//        }
+//        localStorageService.updateWeather(with: weatherData)
+//    }
 }

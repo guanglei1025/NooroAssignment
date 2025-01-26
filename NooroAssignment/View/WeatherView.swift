@@ -24,7 +24,7 @@ struct WeatherView: View {
         }
         .task {
             if let weather = weathers.first {
-                await viewModel.getWeatherForSavedData(weather.location.name)
+                await viewModel.getWeatherForSavedLocation()
             }
         }
     }
