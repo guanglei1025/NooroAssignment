@@ -9,7 +9,9 @@ import Foundation
 
 extension WeatherResponse {
     static func mock() -> WeatherResponse {
-        WeatherResponse(location: Location(name: "Miami", country: "USA"),
-                        current: CurrentWeather(tempF: 80, humidity: 10, uv: 5, feelsLikeF: 85))
+        WeatherResponse(
+            location: Location(name: "Miami", country: "USA"),
+            current: CurrentWeather(tempF: 80, humidity: 10, uv: 5, feelsLikeF: 85)
+        )
     }
 }

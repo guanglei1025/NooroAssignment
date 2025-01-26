@@ -9,9 +9,15 @@ import Foundation
 import SwiftData
 
 extension ModelContext {
-    @MainActor
-    static func mock() throws -> ModelContext {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        return try ModelContainer(for: WeatherResponse.self, configurations: config).mainContext
+    @MainActor static func mock() -> ModelContext {
+        do {
+            let config = ModelConfiguration(isStoredInMemoryOnly: true)
+
+            let modelContext = try ModelContainer(for: WeatherResponse.self, configurations: config).mainContext
+
+            return modelContext
+        } catch {
+            fatalError("Failed to create model container for previewing: \(error.localizedDescription)")
+        }
     }
 }

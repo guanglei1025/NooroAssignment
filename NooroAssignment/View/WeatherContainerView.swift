@@ -32,8 +32,8 @@ struct WeatherContainerView: View {
 
     @ViewBuilder
     private var bodyContent: some View {
-        if let weather = viewModel.searchedWeather {
-            SearchResultView(searchedWeather: weather)
+        if viewModel.showSearchResult {
+            SearchResultView()
         } else {
             WeatherView()
         }

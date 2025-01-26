@@ -35,7 +35,7 @@ class WeatherViewModel {
     }
 
     var showSearchResult: Bool {
-        return searchKeyword.count > 3
+        return searchKeyword.count > 3 && searchedWeather != nil
     }
 
     func getWeatherForSavedLocation() async {
