@@ -11,6 +11,8 @@ struct SearchResultView: View {
 
     let searchedWeather: WeatherResponse
 
+    @Environment(WeatherViewModel.self) private var viewModel
+
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 10) {
@@ -32,6 +34,9 @@ struct SearchResultView: View {
         .padding(20)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
+        .onTapGesture {
+            viewModel.saveToLocalStorage(searchedWeather)
+        }
     }
 }
 
