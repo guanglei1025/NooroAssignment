@@ -12,6 +12,23 @@ protocol WeatherAPIFeatching {
     func getCurrentWeather(for keyword: String) async throws -> WeatherResponse
 }
 
+enum WeatherAPIError: LocalizedError {
+    case invalidURL
+    case badResponse(statusCode: Int)
+    case decodingError
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "The URL provided was invalid. Please check the input and try again."
+        case .badResponse(let statusCode):
+            return "The server returned an unexpected response with status code \(statusCode)."
+        case .decodingError:
+            return "There was an error decoding the weather data. Please try again later."
+        }
+    }
+}
+
 class WeatherAPIService: WeatherAPIFeatching {
 
     private let session: URLSessionProtocol
@@ -25,7 +42,7 @@ class WeatherAPIService: WeatherAPIFeatching {
     func getCurrentWeather(for keyword: String) async throws -> WeatherResponse {
         let urlString = "https://api.weatherapi.com/v1/current.json?key=\(key)&q=\(keyword)"
         guard let url = URL(string: urlString) else {
-            throw URLError(.badURL)
+            throw WeatherAPIError.invalidURL
         }
 
         let (data, response) = try await session.data(from: url)
@@ -33,10 +50,14 @@ class WeatherAPIService: WeatherAPIFeatching {
         guard let httpResponse = response as? HTTPURLResponse,
               200..<300 ~= httpResponse.statusCode
         else {
-            throw URLError(.badServerResponse)
+            throw WeatherAPIError.badResponse(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 0)
         }
 
-        return try JSONDecoder().decode(WeatherResponse.self, from: data)
+        do {
+            return try JSONDecoder().decode(WeatherResponse.self, from: data)
+        } catch {
+            throw WeatherAPIError.decodingError
+        }
     }
 }
 
