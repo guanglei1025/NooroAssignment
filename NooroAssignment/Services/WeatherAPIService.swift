@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-protocol WeatherAPIFeatching {
+protocol WeatherAPIFetching {
     func getCurrentWeather(for keyword: String) async throws -> WeatherResponse
 }
 
@@ -29,7 +29,7 @@ enum WeatherAPIError: LocalizedError {
     }
 }
 
-class WeatherAPIService: WeatherAPIFeatching {
+class WeatherAPIService: WeatherAPIFetching {
 
     private let session: URLSessionProtocol
 

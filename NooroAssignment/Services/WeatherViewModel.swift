@@ -26,12 +26,13 @@ class WeatherViewModel {
 
     var searchedWeather: WeatherResponse?
 
-    private var weatherService = WeatherAPIService()
+    private var weatherService: WeatherAPIFetching
 
     private var localStorageService: LocalStorageService
 
-    init(modelContext: ModelContext) {
+    init(modelContext: ModelContext, weatherService: WeatherAPIFetching = WeatherAPIService()) {
         self.localStorageService = LocalStorageService(modelContext: modelContext)
+        self.weatherService = weatherService
     }
 
     var showSearchResult: Bool {
