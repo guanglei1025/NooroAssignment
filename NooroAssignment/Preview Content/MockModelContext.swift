@@ -14,9 +14,9 @@ extension ModelContext {
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
 
-            let container = try ModelContainer(for: WeatherResponse.self, configurations: config)
+            let container = try ModelContainer(for: Weather.self, configurations: config)
 
-            let weather = WeatherResponse(location: Location(name: "Miami", country: "USA"), current:
+            let weather = Weather(location: Location(name: "Miami", country: "USA"), current:
                                             CurrentWeather(tempF: 10.0, humidity: 5.0, uv: 3.0, feelsLikeF: 2.0))
 
             container.mainContext.insert(weather)

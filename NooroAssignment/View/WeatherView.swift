@@ -12,7 +12,7 @@ struct WeatherView: View {
     @Environment(WeatherViewModel.self) var viewModel
 
     @Query
-    var weathers: [WeatherResponse]
+    var weathers: [Weather]
 
     var body: some View {
         Group {
@@ -30,7 +30,7 @@ struct WeatherView: View {
     }
 
     @ViewBuilder
-    private func bodyContent(for weather: WeatherResponse) -> some View {
+    private func bodyContent(for weather: Weather) -> some View {
         VStack(spacing: 20) {
             Image(systemName: "heart.fill")
                 .resizable()

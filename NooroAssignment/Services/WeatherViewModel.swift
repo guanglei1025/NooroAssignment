@@ -24,7 +24,7 @@ class WeatherViewModel {
         }
     }
 
-    var searchedWeather: WeatherResponse?
+    var searchedWeather: Weather?
 
     private var weatherService: WeatherAPIFetching
 
@@ -59,7 +59,7 @@ class WeatherViewModel {
         }
     }
 
-    func saveToLocalStorage(_ weather: WeatherResponse) {
+    func saveToLocalStorage(_ weather: Weather) {
         localStorageService.updateWeather(with: weather)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 protocol WeatherAPIFetching {
-    func getCurrentWeather(for keyword: String) async throws -> WeatherResponse
+    func getCurrentWeather(for keyword: String) async throws -> Weather
 }
 
 enum WeatherAPIError: LocalizedError {
@@ -39,7 +39,7 @@ class WeatherAPIService: WeatherAPIFetching {
         self.session = session
     }
 
-    func getCurrentWeather(for keyword: String) async throws -> WeatherResponse {
+    func getCurrentWeather(for keyword: String) async throws -> Weather {
         let urlString = "https://api.weatherapi.com/v1/current.json?key=\(key)&q=\(keyword)"
         guard let url = URL(string: urlString) else {
             throw WeatherAPIError.invalidURL
@@ -54,7 +54,7 @@ class WeatherAPIService: WeatherAPIFetching {
         }
 
         do {
-            return try JSONDecoder().decode(WeatherResponse.self, from: data)
+            return try JSONDecoder().decode(Weather.self, from: data)
         } catch {
             throw WeatherAPIError.decodingError
         }

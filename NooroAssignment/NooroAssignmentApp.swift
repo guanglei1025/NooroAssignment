@@ -12,7 +12,7 @@ import SwiftData
 struct NooroAssignmentApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            WeatherResponse.self,
+            Weather.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
