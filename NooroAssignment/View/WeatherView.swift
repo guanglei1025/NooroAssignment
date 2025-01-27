@@ -38,20 +38,20 @@ struct WeatherView: View {
                 .frame(width: 123, height: 123)
 
             HStack(alignment: .center) {
-                Text(weather.location.name)
+                Text(weather.locationDisplay)
                     .font(.system(size: 35, weight: .bold))
 
                 Image(systemName: "location.fill")
                     .imageScale(.large)
             }
 
-            Text("\(Int(weather.current.tempF))")
+            Text(weather.temperatureDisplay)
                 .font(.system(size: 100, weight: .semibold))
 
             HStack(spacing: 50) {
-                VerticalCell(title: "Humidity", subtitle: "\(weather.current.humidity)")
-                VerticalCell(title: "UV", subtitle: "\(weather.current.uv)")
-                VerticalCell(title: "Feels Like", subtitle: "\(weather.current.feelsLikeF)")
+                VerticalCell(title: "Humidity", subtitle: weather.humidityDisplay)
+                VerticalCell(title: "UV", subtitle: weather.uvDisplay)
+                VerticalCell(title: "Feels Like", subtitle: weather.feelsLikeDisplay)
             }
             .padding(.vertical)
             .frame(maxWidth: .infinity)

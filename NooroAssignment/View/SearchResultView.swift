@@ -16,10 +16,10 @@ struct SearchResultView: View {
         if let searchedWeather = viewModel.searchedWeather {
             HStack{
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(searchedWeather.location.name)
+                    Text(searchedWeather.locationDisplay)
                         .font(.system(size: 25, weight: .bold))
 
-                    Text("\(Int(searchedWeather.current.tempF))")
+                    Text(searchedWeather.temperatureDisplay)
                         .font(.system(size: 60, weight: .semibold))
                 }
 
