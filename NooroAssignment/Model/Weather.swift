@@ -50,4 +50,8 @@ extension Weather {
     var locationDisplay : String {
         return location.name
     }
+
+    var iconURL: URL? {
+        return URL(string: "https:\(current.condition.iconURLString)")
+    }
 }

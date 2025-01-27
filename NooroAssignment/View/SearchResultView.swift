@@ -25,10 +25,14 @@ struct SearchResultView: View {
 
                 Spacer()
 
-                Image(systemName: "heart.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 123, height: 123)
+                AsyncImage(url: searchedWeather.iconURL) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 123, height: 123)
+                } placeholder: {
+                    ProgressView()
+                }
             }
             .frame(maxWidth: .infinity)
             .padding(20)

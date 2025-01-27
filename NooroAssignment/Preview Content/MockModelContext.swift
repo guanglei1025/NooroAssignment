@@ -16,8 +16,10 @@ extension ModelContext {
 
             let container = try ModelContainer(for: Weather.self, configurations: config)
 
-            let weather = Weather(location: Location(name: "Miami", country: "USA"), current:
-                                            CurrentWeather(tempF: 10.0, humidity: 5.0, uv: 3.0, feelsLikeF: 2.0))
+            let weather = Weather(
+                location: Location(name: "Miami", country: "USA"),
+                current: CurrentWeather(tempF: 10.0, humidity: 5.0, uv: 3.0, feelsLikeF: 2.0, condition: Condition(text: "Partly cloudy", iconURLString: "https://cdn.weatherapi.com/weather/64x64/night/116.png"))
+            )
 
             container.mainContext.insert(weather)
 

@@ -32,10 +32,14 @@ struct WeatherView: View {
     @ViewBuilder
     private func bodyContent(for weather: Weather) -> some View {
         VStack(spacing: 20) {
-            Image(systemName: "heart.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 123, height: 123)
+            AsyncImage(url: weather.iconURL) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 123, height: 123)
+            } placeholder: {
+                ProgressView()
+            }
 
             HStack(alignment: .center) {
                 Text(weather.locationDisplay)
