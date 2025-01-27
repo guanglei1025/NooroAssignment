@@ -61,5 +61,6 @@ class WeatherViewModel {
 
     func saveToLocalStorage(_ weather: Weather) {
         localStorageService.updateWeather(with: weather)
+        searchKeyword = ""
     }
 }
